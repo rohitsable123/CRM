@@ -1,0 +1,39 @@
+{
+  "name": "leadflow-crm",
+  "version": "1.0.0",
+  "description": "Full Stack Lead Management System (Mini CRM) - Unified Repo",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "client": "vite",
+    "dev": "concurrently \"nodemon server.js\" \"vite\"",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "crm",
+    "lead-management",
+    "react",
+    "express",
+    "postgres",
+    "supabase"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.2",
+    "vite": "^8.0.14"
+  }
+}

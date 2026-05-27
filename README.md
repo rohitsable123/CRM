@@ -26,30 +26,29 @@ The frontend boasts an ultra-modern, HubSpot-style premium dashboard featuring:
 
 ---
 
-## 📂 Beginner-Friendly Project Structure
-Rather than nesting file configurations across multiple deep folders, this application uses a consolidated, flat file layout to make it very easy for beginners to trace data flow from the database to the screen:
+## 📂 Project Structure
+This application uses a unified, single-folder project structure. All front-end assets, back-end APIs, and packages reside together in the root directory. This avoids maintaining separate folders or installing separate `node_modules` folders, making it incredibly easy to manage and run:
 
 ```text
 Lead Management System(CRM)/
-├── client/                     # React Frontend App
-│   ├── src/
-│   │   ├── components/         # Reusable dashboard UI parts
-│   │   │   ├── Dashboard.jsx   # Metrics stats cards
-│   │   │   ├── LeadForm.jsx    # Add lead card + validators
-│   │   │   └── LeadList.jsx    # Desktop Table & Mobile Cards grid
-│   │   ├── App.jsx             # Main App layout, search/filters, & API fetch logic
-│   │   ├── index.css           # Premium Custom Design system styling
-│   │   └── main.jsx            # Entry point mounting React
-│   ├── package.json            # React & Vite build configurations
-│   └── vite.config.js          
-├── server/                     # Express Backend App
-│   ├── db.js                   # Simple database connection pool (pg.Pool)
-│   ├── server.js               # APIs, routing, validation, error middleware
-│   ├── .env                    # Secret database & Port credentials
-│   ├── .env.example            # Environment variables placeholder
-│   └── package.json            # Backend Node packages & dev scripts
-├── schema.sql                  # PostgreSQL DB Schema setup and seed data
-└── README.md                   # Complete developer manual (This file!)
+├── src/                        # React Frontend Source Files
+│   ├── components/             # Reusable dashboard UI parts
+│   │   ├── Dashboard.jsx       # Dynamic metrics cards
+│   │   ├── LeadForm.jsx        # Validation inputs for lead entries
+│   │   └── LeadList.jsx        # Desktop tables & mobile grid layouts
+│   ├── App.css                 
+│   ├── App.jsx                 # Dynamic query search and toast coordinates
+│   ├── index.css               # Main global stylesheet & design system
+│   └── main.jsx                # React application entry-point
+├── db.js                       # PostgreSQL client pool & SSL auto-detector
+├── server.js                   # Unified Express backend & API endpoints
+├── index.html                  # Core HTML file template
+├── vite.config.js              # Vite server & API proxy rules configuration
+├── package.json                # Single unified package manager
+├── .env                        # Local secret database credentials
+├── .env.example                # Cloud database credentials template
+├── schema.sql                  # PostgreSQL table structure migration code
+└── README.md                   # Core documentation (This file!)
 ```
 
 ---
@@ -75,51 +74,35 @@ Ensure you have **Node.js** (v16+) and **PostgreSQL** installed locally on your 
 
 ---
 
-### Step 2: Configure Backend Environment
-1. Navigate to the `server/` directory:
-   ```bash
-   cd server
-   ```
-2. Create a `.env` file (you can copy [.env.example](./server/.env.example)):
+### Step 2: Configure Environment Variables
+1. In the root directory, create a `.env` file (you can copy [.env.example](./.env.example)):
    ```env
    PORT=5000
    DATABASE_URL=postgresql://postgres:postgres@localhost:5432/lead_db
    ```
-   *Note: Adjust `postgres:postgres` in the connection string to match your local database username and password.*
+   *Note: Adjust the username/password in the connection string to match your local database credentials or your cloud Supabase database URL.*
 
 ---
 
-### Step 3: Run the Backend Server
-1. While inside the `server/` directory, install Node dependencies:
+### Step 3: Install Unified Dependencies
+1. Open your terminal in the root project folder and run:
    ```bash
    npm install
    ```
-2. Start the server in hot-reload development mode:
-   ```bash
-   npm run dev
-   ```
-3. The server will start on `http://localhost:5000`. You should see:
-   ```text
-   ✅ PostgreSQL Database connected successfully
-   🚀 CRM Backend Server running at http://localhost:5000
-   ```
+   *This single command installs all frontend and backend libraries (Express, React, Vite, PG pool, Nodemon, and Concurrently).*
 
 ---
 
-### Step 4: Run the Frontend Client
-1. Open a new terminal window, navigate to the `client/` directory:
-   ```bash
-   cd client
-   ```
-2. Install the React packages:
-   ```bash
-   npm install
-   ```
-3. Launch the Vite local dev server:
+### Step 4: Run the Application (Single Command!)
+1. Start both the React frontend and the Express backend simultaneously with one command:
    ```bash
    npm run dev
    ```
-4. Click or open `http://localhost:5173` in your browser. You are ready to manage your leads!
+2. The terminal will spin up:
+   *   **Express Backend Server** at `http://localhost:5000`
+   *   **Vite React Dev Server** at `http://localhost:5173`
+3. Open `http://localhost:5173` in your browser. You are fully ready to manage your leads!
+
 
 ---
 
