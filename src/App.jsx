@@ -4,15 +4,20 @@ import LeadForm from './components/LeadForm';
 import LeadList from './components/LeadList';
 
 // Backend server API URL setup
-// Auto-sanitizes the VITE_API_URL to append '/api' if it was omitted by the user during deployment config.
-let baseApiUrl = import.meta.env.VITE_API_URL 
-  || (window.location.origin.includes('5173') ? 'http://localhost:5000/api' : '/api');
+// Extremely robust normalizer: strips any duplicate '/api' or trailing slashes, then appends '/api' exactly once.
+let baseApiUrl = (import.meta.env.VITE_API_URL || '').trim();
 
-if (baseApiUrl.startsWith('http') && !baseApiUrl.endsWith('/api') && !baseApiUrl.endsWith('/api/')) {
-  baseApiUrl = `${baseApiUrl.replace(/\/$/, '')}/api`;
+if (!baseApiUrl) {
+  baseApiUrl = window.location.origin.includes('5173') ? 'http://localhost:5000/api' : '/api';
+} else if (baseApiUrl.startsWith('http')) {
+  // Strip any trailing slashes and any repeated '/api' segments from the end (case-insensitive)
+  baseApiUrl = baseApiUrl.replace(/(\/api\/?)+$/i, '').replace(/\/+$/, '');
+  // Append '/api' exactly once
+  baseApiUrl = `${baseApiUrl}/api`;
 }
 
 const API_BASE_URL = baseApiUrl;
+
 
 
 
