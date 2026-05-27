@@ -4,9 +4,16 @@ import LeadForm from './components/LeadForm';
 import LeadList from './components/LeadList';
 
 // Backend server API URL setup
-// Supports cloud deployment VITE_API_URL or falls back to standard local ports
-const API_BASE_URL = import.meta.env.VITE_API_URL 
+// Auto-sanitizes the VITE_API_URL to append '/api' if it was omitted by the user during deployment config.
+let baseApiUrl = import.meta.env.VITE_API_URL 
   || (window.location.origin.includes('5173') ? 'http://localhost:5000/api' : '/api');
+
+if (baseApiUrl.startsWith('http') && !baseApiUrl.endsWith('/api') && !baseApiUrl.endsWith('/api/')) {
+  baseApiUrl = `${baseApiUrl.replace(/\/$/, '')}/api`;
+}
+
+const API_BASE_URL = baseApiUrl;
+
 
 
 export default function App() {
