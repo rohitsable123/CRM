@@ -4,10 +4,10 @@ import LeadForm from './components/LeadForm';
 import LeadList from './components/LeadList';
 
 // Backend server API URL setup
-// Uses http://localhost:5000/api when running on Vite dev port 5173, fallback to relative /api
-const API_BASE_URL = window.location.origin.includes('5173') 
-  ? 'http://localhost:5000/api' 
-  : '/api';
+// Supports cloud deployment VITE_API_URL or falls back to standard local ports
+const API_BASE_URL = import.meta.env.VITE_API_URL 
+  || (window.location.origin.includes('5173') ? 'http://localhost:5000/api' : '/api');
+
 
 export default function App() {
   // --- CORE STATE ---
