@@ -94,6 +94,13 @@ app.post('/api/leads', async (req, res, next) => {
       return res.status(400).json({ error: 'Source must be Call, WhatsApp, or Field' });
     }
 
+    // Check if a lead with the same phone number already exists
+    const checkPhoneQuery = 'SELECT id FROM leads WHERE phone = $1';
+    const existingLead = await db.query(checkPhoneQuery, [phone.trim()]);
+    if (existingLead.rows.length > 0) {
+      return res.status(400).json({ error: 'Lead already added with same number' });
+    }
+
     // Insert new lead into the database.
     // Default status is 'Interested'. Parameterized query protects against SQL injection.
     const queryText = `
